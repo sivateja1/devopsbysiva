@@ -6,7 +6,6 @@ USERID=$(id -u)
 if[ $USERID -ne 197609 ]
 then
     echo "please run this script with root privileges" 
-else
-    dnf install git -y
-
 fi
+
+PWD
