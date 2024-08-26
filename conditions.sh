@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [$date+%a == sat]
+if [$date == sat]
 then
     echo "Holiday"
 else
