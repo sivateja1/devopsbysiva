@@ -8,4 +8,4 @@ then
     echo "please run this script with root privileges" 
 fi
 
-curl https://github.com/sivateja1/expenses-documention
+
