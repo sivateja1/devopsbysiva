@@ -1,6 +1,7 @@
 - name: install nginx
   become: yes
-  hosts: web
+  hosts: localhost
+  connection: local
   tasks:
   - name: print the stats
     ansible.builtin.debug:
