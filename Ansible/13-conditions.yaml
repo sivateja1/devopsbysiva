@@ -1,5 +1,6 @@
 - name: create user
   hosts: localhost
+  connection: ssh
   become: yes
   tasks:
   - name: check whether user is there or not
