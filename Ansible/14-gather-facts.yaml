@@ -1,4 +1,4 @@
-- name: Gathering facts
+- name: gathering facts
   hosts: web
   become: yes
   tasks:
