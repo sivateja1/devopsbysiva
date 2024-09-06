@@ -1,5 +1,5 @@
 - name: create user
-  hosts: local
+  hosts: localhost
   become: yes
   tasks:
   - name: check whether user is there or not
