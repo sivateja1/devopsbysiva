@@ -114,3 +114,163 @@ configure_network.yml
 Step 10: Join the Ansible Community
 
 
+-----------------------------------------------------------------------------------------------------------------
+
+Here are 10 basic Ansible playbooks covering various topics:
+
+1. Variables
+
+---
+- name: Print Variables
+  hosts: localhost
+  vars:
+    name: "John Doe"
+    age: 30
+  tasks:
+  - debug:
+      msg: "Name: {{ name }}, Age: {{ age }}"
+
+
+2. Loops
+
+---
+- name: Loop Example
+  hosts: localhost
+  tasks:
+  - name: Print numbers
+    debug:
+      msg: "{{ item }}"
+    loop: [1, 2, 3, 4, 5]
+
+
+3. Datatypes
+
+---
+- name: Datatype Example
+  hosts: localhost
+  vars:
+    bool_var: true
+    int_var: 10
+    float_var: 3.14
+    str_var: "Hello"
+  tasks:
+  - debug:
+      msg: "Bool: {{ bool_var }}, Int: {{ int_var }}, Float: {{ float_var }}, String: {{ str_var }}"
+
+
+4. Conditions
+
+---
+- name: Conditional Example
+  hosts: localhost
+  vars:
+    num: 10
+  tasks:
+  - name: Print message
+    debug:
+      msg: "Number is greater than 5"
+    when: num > 5
+
+
+5. Templates
+
+---
+- name: Template Example
+  hosts: localhost
+  vars:
+    name: "John Doe"
+  tasks:
+  - name: Print template
+    template:
+      src: template.j2
+      dest: /tmp/output.txt
+    vars:
+      name: "{{ name }}"
+
+
+6. Handlers
+
+---
+- name: Handler Example
+  hosts: localhost
+  tasks:
+  - name: Start service
+    service:
+      name: httpd
+      state: started
+    notify: restart httpd
+  handlers:
+  - name: restart httpd
+    service:
+      name: httpd
+      state: restarted
+
+
+7. Roles
+
+---
+- name: Role Example
+  hosts: localhost
+  roles:
+  - role: my_role
+
+
+8. Blocks
+
+---
+- name: Block Example
+  hosts: localhost
+  tasks:
+  - block:
+    - name: Task 1
+      debug:
+        msg: "Task 1"
+    - name: Task 2
+      debug:
+        msg: "Task 2"
+    rescue:
+    - name: Rescue task
+      debug:
+        msg: "Rescue task"
+
+
+9. Tags
+
+---
+- name: Tag Example
+  hosts: localhost
+  tasks:
+  - name: Task 1
+    debug:
+      msg: "Task 1"
+    tags:
+    - task1
+  - name: Task 2
+    debug:
+      msg: "Task 2"
+    tags:
+    - task2
+
+
+10. Facts
+
+---
+- name: Facts Example
+  hosts: localhost
+  tasks:
+  - name: Print facts
+    debug:
+      msg: "{{ ansible_facts }}"
+
+
+These playbooks cover various Ansible concepts, including variables, loops, datatypes, conditions, templates, handlers, roles, blocks, tags, and facts.
+
+
+
+
+
+
+
+
+
+
