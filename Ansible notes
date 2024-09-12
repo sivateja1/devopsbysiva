@@ -94,7 +94,7 @@ deploy_web_app.yml
 
 Step 8: Use Ansible Galaxy
 
-No playbook needed for this step
+
 
 Step 9: Practice and Experiment
 
@@ -113,6 +113,4 @@ configure_network.yml
 
 Step 10: Join the Ansible Community
 
-No playbook needed for this step
 
-Note: These playbooks are just examples and may need to be modified to fit your specific use case.
