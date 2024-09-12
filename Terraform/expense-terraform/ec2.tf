@@ -1,4 +1,4 @@
-resource "aws_instance" "expense" {
+resource "aws_instance" "expense" {   
     count = length(var.instance_names)
     ami = "ami-09c813fb71547fc4f"
     instance_type = "t3.micro"
@@ -11,6 +11,7 @@ resource "aws_instance" "expense" {
         var.common_tags,
         {
             Name = var.instance_names[count.index]
+
         }
     )
 }    
