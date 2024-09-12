@@ -1,0 +1,118 @@
+Here are example playbooks 
+
+Step 1: Understand Ansible Basics
+
+Step 2: Install Ansible
+
+Step 3: Write Your First Playbook
+
+hello_world.yml
+
+---
+- name: Hello World
+  hosts: localhost
+  tasks:
+    - name: Print Hello World
+      debug:
+        msg: "Hello World"
+
+Step 4: Run Your Playbook
+
+ansible-playbook -i <inventory_file> <playbook_file>
+
+Example:
+
+ansible-playbook -i hosts.ini playbook.yml
+
+Options:
+
+- -i specifies the inventory file.
+- --check runs the playbook in dry-run mode (no changes made).
+
+_Run the hello_world.yml playbook from Step 3_
+
+Step 5: Learn Ansible Modules
+
+install_nginx.yml
+
+---
+- name: Install Nginx
+  hosts: webserver
+  become: yes
+  tasks:
+    - name: Install Nginx
+      apt:
+        name: nginx
+        state: present
+
+Step 6: Write Playbooks for Real-World Scenarios
+
+deploy_web_app.yml
+
+---
+- name: Deploy Web App
+  hosts: webserver
+  become: yes
+  tasks:
+    - name: Clone Git Repository
+      git:
+        repo: https://github.com/user/myapp.git
+        dest: /opt/myapp
+    - name: Install Dependencies
+      npm:
+        path: /opt/myapp
+    - name: Start App
+      service:
+        name: myapp
+        state: started
+        enabled: yes
+
+Step 7: Learn Ansible Roles
+
+roles/webserver/tasks/main.yml
+
+---
+- name: Install Nginx
+  apt:
+    name: nginx
+    state: present
+
+- name: Start Nginx
+  service:
+    name: nginx
+    state: started
+    enabled: yes
+
+deploy_web_app.yml
+
+---
+- name: Deploy Web App
+  hosts: webserver
+  become: yes
+  roles:
+    - webserver
+
+Step 8: Use Ansible Galaxy
+
+No playbook needed for this step
+
+Step 9: Practice and Experiment
+
+configure_network.yml
+
+---
+- name: Configure Network
+  hosts: network_device
+  become: yes
+  tasks:
+    - name: Configure IP Address
+      ios_config:
+        lines:
+          - "ip address 10.0.0.1 255.255.255.0"
+        parents: "interface Ethernet0"
+
+Step 10: Join the Ansible Community
+
+No playbook needed for this step
+
+Note: These playbooks are just examples and may need to be modified to fit your specific use case.
