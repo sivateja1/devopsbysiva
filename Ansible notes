@@ -1,0 +1,454 @@
+Here are example playbooks 
+
+Step 1: Understand Ansible Basics
+
+Step 2: Install Ansible
+
+Step 3: Write Your First Playbook
+
+hello_world.yml
+
+---
+- name: Hello World
+  hosts: localhost
+  tasks:
+    - name: Print Hello World
+      debug:
+        msg: "Hello World"
+
+Step 4: Run Your Playbook
+
+ansible-playbook -i <inventory_file> <playbook_file>
+
+Example:
+
+ansible-playbook -i hosts.ini playbook.yml
+
+Options:
+
+- -i specifies the inventory file.
+- --check runs the playbook in dry-run mode (no changes made).
+
+_Run the hello_world.yml playbook from Step 3_
+
+Step 5: Learn Ansible Modules
+
+install_nginx.yml
+
+---
+- name: Install Nginx
+  hosts: webserver
+  become: yes
+  tasks:
+    - name: Install Nginx
+      apt:
+        name: nginx
+        state: present
+
+Step 6: Write Playbooks for Real-World Scenarios
+
+deploy_web_app.yml
+
+---
+- name: Deploy Web App
+  hosts: webserver
+  become: yes
+  tasks:
+    - name: Clone Git Repository
+      git:
+        repo: https://github.com/user/myapp.git
+        dest: /opt/myapp
+    - name: Install Dependencies
+      npm:
+        path: /opt/myapp
+    - name: Start App
+      service:
+        name: myapp
+        state: started
+        enabled: yes
+
+Step 7: Learn Ansible Roles
+
+roles/webserver/tasks/main.yml
+
+---
+- name: Install Nginx
+  apt:
+    name: nginx
+    state: present
+
+- name: Start Nginx
+  service:
+    name: nginx
+    state: started
+    enabled: yes
+
+deploy_web_app.yml
+
+---
+- name: Deploy Web App
+  hosts: webserver
+  become: yes
+  roles:
+    - webserver
+
+Step 8: Use Ansible Galaxy
+
+
+
+Step 9: Practice and Experiment
+
+configure_network.yml
+
+---
+- name: Configure Network
+  hosts: network_device
+  become: yes
+  tasks:
+    - name: Configure IP Address
+      ios_config:
+        lines:
+          - "ip address 10.0.0.1 255.255.255.0"
+        parents: "interface Ethernet0"
+
+Step 10: Join the Ansible Community
+
+
+-----------------------------------------------------------------------------------------------------------------
+
+Here are 10 basic Ansible playbooks covering various topics:
+
+1. Variables
+
+---
+- name: Print Variables
+  hosts: localhost
+  vars:
+    name: "John Doe"
+    age: 30
+  tasks:
+  - debug:
+      msg: "Name: {{ name }}, Age: {{ age }}"
+
+
+2. Loops
+
+---
+- name: Loop Example
+  hosts: localhost
+  tasks:
+  - name: Print numbers
+    debug:
+      msg: "{{ item }}"
+    loop: [1, 2, 3, 4, 5]
+
+
+3. Datatypes
+
+---
+- name: Datatype Example
+  hosts: localhost
+  vars:
+    bool_var: true
+    int_var: 10
+    float_var: 3.14
+    str_var: "Hello"
+  tasks:
+  - debug:
+      msg: "Bool: {{ bool_var }}, Int: {{ int_var }}, Float: {{ float_var }}, String: {{ str_var }}"
+
+
+4. Conditions
+
+---
+- name: Conditional Example
+  hosts: localhost
+  vars:
+    num: 10
+  tasks:
+  - name: Print message
+    debug:
+      msg: "Number is greater than 5"
+    when: num > 5
+
+
+5. Templates
+
+---
+- name: Template Example
+  hosts: localhost
+  vars:
+    name: "John Doe"
+  tasks:
+  - name: Print template
+    template:
+      src: template.j2
+      dest: /tmp/output.txt
+    vars:
+      name: "{{ name }}"
+
+
+6. Handlers
+
+---
+- name: Handler Example
+  hosts: localhost
+  tasks:
+  - name: Start service
+    service:
+      name: httpd
+      state: started
+    notify: restart httpd
+  handlers:
+  - name: restart httpd
+    service:
+      name: httpd
+      state: restarted
+
+
+7. Roles
+
+---
+- name: Role Example
+  hosts: localhost
+  roles:
+  - role: my_role
+
+
+8. Blocks
+
+---
+- name: Block Example
+  hosts: localhost
+  tasks:
+  - block:
+    - name: Task 1
+      debug:
+        msg: "Task 1"
+    - name: Task 2
+      debug:
+        msg: "Task 2"
+    rescue:
+    - name: Rescue task
+      debug:
+        msg: "Rescue task"
+
+
+9. Tags
+
+---
+- name: Tag Example
+  hosts: localhost
+  tasks:
+  - name: Task 1
+    debug:
+      msg: "Task 1"
+    tags:
+    - task1
+  - name: Task 2
+    debug:
+      msg: "Task 2"
+    tags:
+    - task2
+
+
+10. Facts
+
+---
+- name: Facts Example
+  hosts: localhost
+  tasks:
+  - name: Print facts
+    debug:
+      msg: "{{ ansible_facts }}"
+
+
+These playbooks cover various Ansible concepts, including variables, loops, datatypes, conditions, templates, handlers, roles, blocks, tags, and facts.
+
+
+----------------------------------------------------------------------------------------------------------------------
+
+Ansible modules are small programs that perform specific tasks, such as:
+
+1. Installing packages (e.g., apt, yum)
+2. Managing users and groups (e.g., user, group)
+3. Configuring networks (e.g., iptables, firewalld)
+4. Deploying applications (e.g., git, docker)
+5. Managing files and directories (e.g., copy, file)
+
+Modules are:
+
+1. Idempotent: They ensure desired state is achieved, without creating duplicates.
+2. Reusable: Can be used across multiple playbooks and roles.
+3. Flexible: Can be customized with arguments and variables.
+
+Some popular Ansible modules include:
+
+1. command: Runs a command on a remote node.
+2. template: Renders a template file with variables.
+3. service: Manages system services (e.g., start, stop, restart).
+4. package: Installs or removes packages.
+5. user: Creates or manages user accounts.
+6. file: Creates or manages files and directories.
+7. cron: Manages cron jobs.
+8. docker: Deploys and manages Docker containers.
+
+You can:
+
+1. Use existing modules: Ansible provides a vast collection of built-in modules.
+2. Create custom modules: Write your own modules in Python or other languages.
+3. Use third-party modules: Install modules from Ansible Galaxy or other sources.
+
+Modules are a key component of Ansible's simplicity and flexibility, making it easy to automate complex tasks.
+
+
+---------------------------------------------------------------------------------------------------------------------
+
+Ansible variables are values that can be used in playbooks, templates, and inventory files to customize and parameterize your automation tasks. They allow you to:
+
+1. Store sensitive data: Encrypt and store sensitive data, such as passwords and API keys.
+2. Parameterize tasks: Use variables to customize tasks, such as setting the version of a package to install.
+3. Reuse code: Write reusable playbooks and roles by using variables to define configuration options.
+
+Types of Ansible variables:
+
+1. Inventory variables: Defined in inventory files (e.g., hosts.ini) and apply to specific hosts or groups.
+2. Playbook variables: Defined in playbook files (e.g., playbook.yml) and apply to the entire playbook.
+3. Role variables: Defined in role directories (e.g., roles/my_role/vars/main.yml) and apply to the role.
+4. Facts: Automatically discovered variables about the nodes, such as IP addresses and operating systems.
+5. Registered variables: Store output from tasks, such as the result of a command execution.
+
+How to define and use variables:
+
+1. Define variables: Use the vars keyword in playbooks, roles, or inventory files.
+2. Use variables: Reference variables using the {{ variable_name }} syntax in playbooks, templates, and inventory files.
+3. Override variables: Use the --extra-vars command-line option or environment variables to override defined variables.
+
+Best practices:
+
+1. Use meaningful names: Choose descriptive variable names to improve readability.
+2. Keep sensitive data secure: Use Ansible Vault to encrypt sensitive data.
+3. Document variables: Clearly document variable usage and purpose in your playbooks and roles.
+
+By using Ansible variables, you can write more flexible, reusable, and maintainable automation code.
+
+Here are some examples of Ansible variables:
+
+Inventory Variables
+
+hosts.ini file:
+
+[webservers]
+web1 ansible_host=192.168.1.100
+web2 ansible_host=192.168.1.101
+
+[webservers:vars]
+http_port=80
+
+Playbook Variables
+
+playbook.yml file:
+
+---
+- name: Configure webservers
+  hosts: webservers
+  vars:
+    http_port: 8080
+  tasks:
+  - name: Start httpd
+    service:
+      name: httpd
+      state: started
+    when: http_port == 80
+
+Role Variables
+
+roles/my_role/vars/main.yml file:
+
+---
+http_port: 8080
+
+Facts
+
+playbook.yml file:
+
+---
+- name: Print facts
+  hosts: localhost
+  tasks:
+  - name: Print IP address
+    debug:
+      msg: "IP address: {{ ansible_default_ipv4.address }}"
+
+Registered Variables
+
+playbook.yml file:
+
+---
+- name: Run command and register output
+  hosts: localhost
+  tasks:
+  - name: Run command
+    command: uptime
+    register: result
+  - name: Print output
+    debug:
+      msg: "Output: {{ result.stdout }}"
+
+Override Variables
+
+Command line:
+
+bash
+ansible-playbook playbook.yml --extra-vars "http_port=8081"
+
+Environment variable:
+
+bash
+export http_port=8081
+ansible-playbook playbook.yml
+
+Note: These are just simple examples to illustrate the concept of variables in Ansible. In real-world scenarios, you would use more complex data structures and variable names.
+
+
+---------------------------------------------------------------------------------------------------------------------------------------
+
+
+Ansible Vault is a feature that allows you to encrypt sensitive data in your Ansible playbooks, roles, and inventory files. Here are the basics:
+
+Why use Ansible Vault?
+
+- Encrypt sensitive data like passwords, API keys, and certificates
+- Protect data from unauthorized access
+- Comply with security regulations and best practices
+
+How does Ansible Vault work?
+
+1. Encryption: Ansible Vault uses AES256 encryption to protect your data.
+2. Password protection: You need a password to encrypt and decrypt the data.
+3. File format: Encrypted files have a .vault extension.
+
+Basic Ansible Vault commands
+
+1. Create an encrypted file: ansible-vault create <file_name>.vault
+2. Edit an encrypted file: ansible-vault edit <file_name>.vault
+3. View an encrypted file: ansible-vault view <file_name>.vault
+4. Encrypt an existing file: ansible-vault encrypt <file_name>
+5. Decrypt a file: ansible-vault decrypt <file_name>.vault
+
+Using Ansible Vault in playbooks
+
+1. Encrypt sensitive data: Store sensitive data in encrypted files or variables.
+2. Use encrypted data in playbooks: Reference encrypted data using the ansible-vault lookup plugin.
+
+Best practices
+
+1. Use strong passwords: Choose a strong password for encrypting and decrypting data.
+2. Store passwords securely: Store passwords in a secure location, like a password manager.
+3. Limit access: Restrict access to encrypted data and passwords.
+
+By using Ansible Vault, you can protect your sensitive data and maintain the security and integrity of your Ansible automation workflows.
+
+
+
+
