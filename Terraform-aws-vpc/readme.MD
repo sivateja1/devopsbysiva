@@ -10,4 +10,9 @@ project_name (Required): User should mention their project name. Type is string.
 
 Outputs
 
-vpc_id: VPC ID public_subnet_ids: A list of 2 public subnet IDS created. database_subnet_ids: A list of 2 database subnet IDS created. private_subnet_ids: A list of 2 private subnet IDS created. database_subnet_group_id: A database subnet group ID created. igw_id: internte gateway created.
+vpc_id: VPC ID 
+public_subnet_ids: A list of 2 public subnet IDS created. 
+private_subnet_ids: A list of 2 private subnet IDS created.
+database_subnet_ids: A list of 2 database subnet IDS created. 
+ 
+database_subnet_group_id: A database subnet group ID created. igw_id: internte gateway created.
