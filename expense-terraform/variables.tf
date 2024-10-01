@@ -34,13 +34,9 @@ variable "vpc_cidr" {
   default     = "10.0.0.0/16"
 }
 
-# variable "vpc_id" {
-    
-# }
-
-# variable "public_subnet_ids" {
-
-# }
-
-
+variable "mysql_sg_tags" {
+    default = {
+        Component = "mysql"
+    }
+}
 
